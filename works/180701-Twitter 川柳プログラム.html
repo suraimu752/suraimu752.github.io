@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Slime Portfolio | Twitter 川柳プログラム</title>
+	
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" href="../img/favicon.ico">
+
+</head>
+<body>
+	<div id="header">
+		<div id="h1">
+		<a href="../index.html">Slime Portfolio</a>
+		</div>
+		<div class="menu_container">
+			<a href="../index.html">
+				<div class="menu">About</div>
+			</a>
+			<a href="../works.html">
+				<div class="menu stay">Works</div>
+			</a>
+			<a href="../links.html">
+				<div class="menu">Links</div>
+			</a>
+		</div>
+	</div>
+	<div id="contents">
+		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sons-of-obsidian"></script>
+		<link rel="stylesheet" href="{% static 'css/180701.css' %}">
+		<div id="main">
+			<div class="h2">Twitter用川柳プログラム</div>
+			<div class="text">
+			Twitterで川柳のレイアウトを整えるのが面倒だったので<br>
+			Pythonでレイアウトを整えてくれるプログラムを書きました。<br><br>
+			</div>
+			
+			<div class="h3">実物</div>
+			<div class="text">
+			コンソール<br>
+			<img src="../img/180701-console.png" width="258" height="111" alt="console" /><br>
+			出力<br>
+			<img src="../img/180701-text.png" width="139" height="290" alt="output" /><br>
+			ツイート<br>
+			<img src="../img/180701-tweet.png" width="318" height="694" alt="tweet" /><br>
+			</div>
+			
+			<div class="h3">改善点</div>
+			<div class="text">
+			Twitterでは一文字目から空白ではない文字までの間が<br>
+			全て無かったことにされるので、<br>
+			このプログラムでは一文字目に空白文字を入れています。<br><br>
+			当初は全ての空白を空白文字で置いていたのですが、<br>
+			iOSだと空白文字が表示されないということだったので<br>
+			一文字目だけを空白文字で置きました。<br><br>
+			
+			ですがiOSで空白文字が表示されないということに変わりはないので<br>
+			このように一行目だけ一列ずれて表示されてしまいます。<br>
+			<img src="../img/180701-iphone.jpg" width="500" height="589" alt="iOSからみたTweet" /><br><br>
+			流石にこれを直すほどのやる気はなかったので諦めました。<br><br>
+			</div>
+			
+			<div class="h3">プログラム</div>
+			<div class="text">
+			最後にこのプログラムのソースコードを貼っておきます。<br>
+			なにか質問があればツイッターでもどこでも良いので気軽に聞いてください。<br><br>
+			</div>
+			
+			<p class="filename">senryuu.py</p>
+			<div class="code"><pre><code class="prettyprint linenums"># coding: utf-8
+
+def main():
+	f = open("senryuu.txt", "w")
+
+	first = input("5    >> ")
+	second = input("7    >> ")
+	third = input("5    >> ")
+	name = input("name >> ")
+	
+	f.write("ㅤ")
+	
+	for i in range(14 + len(name)):
+		if i >= 14:
+			f.write(name[i-14])
+		elif i == 0:
+			pass
+		else:
+			f.write("　")
+		
+		if i < 8 + len(third):
+			f.write("　")
+			if i >= 8:
+				f.write(third[i-8])
+			else:
+				f.write("　")
+			
+		if i < 3 + len(second):
+			f.write("　")
+			if i >= 3:
+				f.write(second[i-3])
+			else:
+				f.write("　")
+		
+		if i < len(first):
+			f.write("　")
+			f.write(first[i])
+			
+		f.write("\n")
+
+	f.close()
+	print("senryuu.txtとして出力しました！")
+	
+
+if __name__ == '__main__':
+	main()</code></pre></div>
+		<br><br>
+		</div>
+	<div id="footer">
+		©2018 SLIME752 ALL RIGHTS RESERVED.
+	</div>
+</body>
+</html>
