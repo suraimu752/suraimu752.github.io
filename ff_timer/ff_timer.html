@@ -1,46 +1,187 @@
 <html>
-    <head>
-        <title>FF14 Timer</title>
-        <script src="./notification.js"></script>
-        <link rel="stylesheet" href="./style.css">
-    </head>
-    <body>
-        <script>
-            let audio = new Audio(sound);
-            audio.volume = 0.3;
-            function changed(){
-                audio.volume = document.getElementById("volume").value;
+<head>
+<title>FF14 Timer</title>
+<script src="./notification.js"></script>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<script>
+    let times = ["0:00", "2:00", "4:00", "6:00", "8:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"];
+    let audio = new Audio(sound);
+    audio.volume = 0.3;
+    let flags = Array(12);
+    let ltet = 0; // 0: LT, 1: ET
+    let notifTiming = 1; // x分前
+    let array = Array(12);
+
+    // time: 0:00, 2:00| x: LT/ET x 分前
+    function timeCalc(time, x){
+        let t = time.split(":");
+        let h = parseInt(t[0]);
+        let m = parseInt(t[1]);
+        
+        if(ltet == 0){
+            x = Math.floor(24 * 60 / 70 * x);
+        }
+
+        if(m - x < 0){
+            if(h - 1 < 0){
+                h = 23;
             }
-        </script>
-        <div class="container">
-          <div class="clock">
-            <div class="ET">ET</div>
-            <p class="clock-time"></p>
-            <input type="range" id="volume" min="0" max="1" step="0.1" value="0.3" oninput="changed();">
-          </div>
-        </div>
-        <script>
-            // let array = ["0:00", "2:00", "4:00", "6:00", "8:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"];
-            let array = ["1:40", "3:40", "5:40", "7:40", "9:40", "11:40", "13:40", "15:40", "17:40", "19:40", "21:40", "23:40"];
-            var timer = setInterval(function() {
-                let lastSunday = new Date();
-                lastSunday.setDate(lastSunday.getDate() - lastSunday.getDay());
-                lastSunday.setHours(0);
-                lastSunday.setMinutes(0);
-                lastSunday.setSeconds(0);
+            else{
+                h -= 1;
+            }
+            m = 60 + m - x;
+        }
+        else{
+            m -= x;
+        }
+        return h + ":" + ("00" + m).slice(-2);
+    }
+    function calc(){
+        for(let i = 0; i < array.length; i++){
+            array[i] = timeCalc(times[i], notifTiming);
+        }
+    }
+    function changed(){
+        audio.volume = document.getElementById("volume").value;
+    }
+    function onchecked(){
+        for(let i = 0; i < flags.length; i++){
+            flags[i] = document.getElementById(i * 2).checked;
+        }
+    }
+    function onselected(){
+        ltet = document.getElementById("ltet").selectedIndex;
+        calc();
+    }
+    function onvaluechanged(){
+        notifTiming = document.getElementById("notifTiming").value;
+        calc();
+    }
+</script>
+<div class="hamburger-menu">
+    <input type="checkbox" id="menu-btn-check">
+    <label for="menu-btn-check" class="menu-btn"><span></span></label>
+    <div class="menu-content">
+        <ul>
+            <li>
+                <div class="menu-item">
+                    <select id="ltet" onchange="onselected();">
+                        <option value="LT">LT</option>
+                        <option value="ET">ET</option>
+                    </select>
+                    <input type="number" id="notifTiming" value="1" onchange="onvaluechanged();">分前に通知
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="0" onchange="onchecked();">
+                    <label for="0">0:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="2" onchange="onchecked();">
+                    <label for="2">2:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="4" onchange="onchecked();">
+                    <label for="4">4:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="6" onchange="onchecked();">
+                    <label for="6">6:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="8" onchange="onchecked();">
+                    <label for="8">8:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="10" onchange="onchecked();">
+                    <label for="10">10:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="12" onchange="onchecked();">
+                    <label for="12">12:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="14" onchange="onchecked();">
+                    <label for="14">14:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="16" onchange="onchecked();">
+                    <label for="16">16:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="18" onchange="onchecked();">
+                    <label for="18">18:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="20" onchange="onchecked();">
+                    <label for="20">20:00</label>
+                </div>
+            </li>
+            <li>
+                <div class="menu-item">
+                    <input type="checkbox" id="22" onchange="onchecked();">
+                    <label for="22">22:00</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="clock">
+    <div class="ET">ET</div>
+    <p class="clock-time"></p>
+    <input type="range" id="volume" min="0" max="1" step="0.1" value="0.3" oninput="changed();">
+    </div>
+</div>
+<script>
+    // let array = ["1:40", "3:40", "5:40", "7:40", "9:40", "11:40", "13:40", "15:40", "17:40", "19:40", "21:40", "23:40"];
+    calc();
+    var timer = setInterval(function() {
+        let lastSunday = new Date();
+        lastSunday.setDate(lastSunday.getDate() - lastSunday.getDay());
+        lastSunday.setHours(0);
+        lastSunday.setMinutes(0);
+        lastSunday.setSeconds(0);
 
-                let now = new Date();
-                let diff = now.getTime() - lastSunday.getTime();
+        let now = new Date();
+        let diff = now.getTime() - lastSunday.getTime();
 
-                let et = Math.floor(((diff / 60000) % 70) / 70 * (24 * 60));
+        let et = Math.floor(((diff / 60000) % 70) / 70 * (24 * 60));
 
-                let time = Math.floor(et / 60) + ":" + ("00" + (et % 60)).slice(-2);
-                document.getElementsByClassName("clock-time")[0].innerHTML = time;
+        let time = Math.floor(et / 60) + ":" + ("00" + (et % 60)).slice(-2);
+        document.getElementsByClassName("clock-time")[0].innerHTML = time;
 
-                if (array.includes(time)) {
-                    audio.play();
-                }
-            }, 300);
-        </script>
-    </body>
+        if (array.includes(time)) {
+            console.log(flags);
+            console.log(array.indexOf(time));
+            if(flags[array.indexOf(time)]){
+                audio.play();
+            }
+        }
+    }, 300);
+</script>
+</body>
 </html>
