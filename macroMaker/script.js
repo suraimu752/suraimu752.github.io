@@ -64,7 +64,9 @@ function make(){
         document.getElementById("macro1").innerHTML = output.slice(0, 15).join("");
         document.getElementById("macro2").innerHTML = output.slice(15).join("");
     }
-    // document.getElementById("macro").value = output;
+    else{
+        document.getElementById("macro").value = output;
+    }
 }
 
 const textarea = $("#logs");
