@@ -35,7 +35,7 @@ function make(){
 
     for(let i in skills){
         console.log(skills[i]);
-        skills[i] = skills[i].slice(charaName.length + 2, -6);
+        skills[i] = skills[i].slice(charaName.length + 2, -7);
     }
 
     let output = [];
