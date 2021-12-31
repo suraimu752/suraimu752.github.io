@@ -1,0 +1,28 @@
+.textareaDiv {
+    position: relative;
+}
+#placeholderDiv {
+    opacity: .6;
+    font-size: 11.5px;
+}
+.textareaDiv #placeholderDiv {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+.textareaDiv #placeholderDiv.none {
+    display: none;
+}
+
+textarea{
+    font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+    font-size: 11.5px;
+}
+.wrapper{
+    float: left;
+    margin: 10px;
+}
+#macroWrapper{
+    display: flex;
+    flex-flow: column;
+}
