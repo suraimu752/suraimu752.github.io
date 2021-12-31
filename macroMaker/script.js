@@ -65,7 +65,7 @@ function make(){
         document.getElementById("macro2").innerHTML = output.slice(15).join("");
     }
     else{
-        document.getElementById("macro").value = output;
+        document.getElementById("macro").value = output.join("");
     }
 }
 
