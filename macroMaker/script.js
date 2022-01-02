@@ -15,6 +15,8 @@ waits["中級加工"] = " <wait.3>";
 waits["上級加工"] = " <wait.3>";
 waits["下地加工"] = " <wait.3>";
 waits["ビエルゴの祝福"] = " <wait.3>";
+waits["グレートストライド"] = " <wait.2>";
+// waits[""] = " <wait.>";
 
 let charaName = "Natsu Slime";
 
@@ -40,12 +42,14 @@ function make(){
 
     let output = [];
     for(let i in skills){
-        try{
-            output.push("/ac " + skills[i] + waits[skills[i]] + "\n");
-        }catch(e){
+        if(waits[skills[i]] == undefined){
             output = "待ち時間が設定されてないスキルが見つかりました\nwaits配列に追加してください\n" + skills[i];
             break;
         }
+        else{
+            output.push("/ac " + skills[i] + waits[skills[i]] + "\n");
+        }
+
         if(skills.length > 15 && i == 13){
             output.push("/e 次！！！！！！！<se.7>");
         }
