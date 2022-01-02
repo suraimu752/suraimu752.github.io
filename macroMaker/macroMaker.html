@@ -5,10 +5,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <p>
+    製作時のログをコピペすると自動でマクロに変換するツールです。<br>
+    入力例のように、最初に使用したスキルが1行目になるようにコピペすると良いです。<br>
+    名前の自動入力を実装していますが、万が一間違っていた場合は手動で書き換えてください。<br>
+    <b>本番製作前に必ず練習製作で確認するようにしてください。</b><br><br>
+    時間の表示をしていないログには対応していません。いつか対応します。
+    </p>
     <div class="wrapper">
-        入力
+        ログ入力
         <div class="textareaDiv">
-            <textarea id="logs" cols="60" rows="45" placeholder=""></textarea>
+            <textarea id="logs" cols="60" rows="42" placeholder=""></textarea>
             <div id="placeholderDiv">
                 [20:15] Natsu Slimeの「真価」   成功<br>
                 [20:15]    品質が 202上昇した。<br>
@@ -62,7 +69,7 @@
     <div class="wrapper">
         マクロ出力
         <div id="macroWrapper">
-            <textarea id="macro" cols="60" rows="45"></textarea>
+            <textarea id="macro" cols="60" rows="42"></textarea>
         </div>
     </div>
 
