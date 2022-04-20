@@ -18,6 +18,7 @@ waits["中級加工"] = " <wait.3>";
 waits["上級加工"] = " <wait.3>";
 waits["下地加工"] = " <wait.3>";
 waits["匠の早業"] = "<wait.3>";
+waits["匠の神業"] = "<wait.3>";
 waits["ビエルゴの祝福"] = " <wait.3>";
 waits["突貫作業"] = " <wait.3>";
 waits["経過観察"] = " <wait.2>";
