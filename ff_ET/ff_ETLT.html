@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>FF14 LT<->ET</title>
+<!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+<body>
+<div class="container">
+    <div class="clock">
+        <div class="ET">ET</div>
+        <span class="clock-time"></span>
+    </div><br>
+    <div id="behind">
+    </div>
+</div>
+<script>
+    let rowET = 0;
+    var timer = setInterval(function() {
+        let lastSunday = new Date();
+        lastSunday.setDate(lastSunday.getDate() - lastSunday.getDay());
+        lastSunday.setHours(0);
+        lastSunday.setMinutes(0);
+        lastSunday.setSeconds(0);
+
+        let now = new Date();
+        let diff = now.getTime() + now.getMilliseconds() - lastSunday.getTime();
+
+        rowET = ((diff / 60000) % 70) / 70 * (24 * 60);
+        console.log(diff);
+        let et = Math.floor(rowET);
+
+        let time = Math.floor(et / 60) + ":" + ("00" + (et % 60)).slice(-2);
+        document.getElementsByClassName("clock-time")[0].innerHTML = time;
+        
+
+        text = "";
+        for(let i = 0; i <= 23; i++){
+            let beh = (i * 60 - rowET + (24 * 60)) % (24 * 60) * 70 / (24 * 60) * 60;
+            beh = Math.floor(beh);
+            // console.log(beh, Math.floor(beh / 60) + ":" + ("00" + (beh % 60)).slice(-2));
+            text += ("0" + String(i)).slice(-2) + ":00 --> " + ("00" + Math.floor(beh / 60)).slice(-2) + ":" + ("00" + (beh % 60)).slice(-2) + "<br>";
+        }
+        document.getElementById("behind").innerHTML = text;
+    }, 100);
+</script>
+</body>
+</html>
