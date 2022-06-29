@@ -1,0 +1,36 @@
+:root{
+    --img-height: 48px;
+    --abi-size-ratio: 0.66;
+}
+#timeline{
+    overflow-x: scroll;
+}
+#skill{
+    display: flex;
+    height: calc(var(--img-height) * calc(var(--abi-size-ratio) + 1.0) * 1.1);
+    width: calc(var(--img-height) * 350);
+}
+img{
+  margin: 1px;
+  padding: 0;
+  width: var(--img-height);
+  height: var(--img-height);
+}
+.gcd{
+    width: var(--img-height);
+    height: var(--img-height);
+    padding-top: calc(var(--img-height) * var(--abi-size-ratio) * 1.1);
+}
+.abi{
+    width: calc(var(--img-height) * var(--abi-size-ratio));
+    height: calc(var(--img-height) * var(--abi-size-ratio));
+    padding-bottom: calc(var(--img-height) * 1.1);
+}
+#skillpanel{
+    width: calc(calc(var(--img-height) + 2px) * 7);
+}
+#skillpanel img{
+  width: var(--img-height);
+  height: var(--img-height);
+  padding: 0;
+}
