@@ -2,7 +2,7 @@ new Sortable(skill, { // 入れ替わる要素を格納している親要素のi
     animation: 150, // 入れ替わる時の速度
 });
 
-let skills = {
+let names = {
     "pve_action__01": "刃風",
     "pve_action__02": "陣風",
     "pve_action__03": "心眼",
@@ -46,12 +46,38 @@ let skills = {
 }
 
 let skillDiv = document.getElementById("skill");
-let imgs = document.getElementById("skillpanel").getElementsByTagName("img");
-for(let i = 0; i < imgs.length; i++){
-    imgs[i].setAttribute("title", skills[imgs[i].getAttribute("id")]);
-    imgs[i].onclick = (e) => {
-        console.log(e.target);
-        skillDiv.append(e.target.cloneNode(true));
-    }
+let removeBtn = document.getElementsByClassName("removeBtn")[0];
+
+// Initialize
+
+let skills = document.getElementById("skillpanel").getElementsByClassName("wrapper");
+for(let i = 0; i < skills.length; i++){
+    skills[i].insertBefore(removeBtn.cloneNode(true), skills[i].firstChild);
+    skills[i].setAttribute("title", names[skills[i].getAttribute("id")]);
+    skills[i].onclick = (e) => {
+        let duplicated = e.currentTarget.cloneNode(true);
+        duplicated.addEventListener("mouseenter", (e) => {
+            e.currentTarget.getElementsByClassName("removeBtn")[0].style = "";
+        });
+        duplicated.addEventListener("mouseleave", (e) => {
+            e.currentTarget.getElementsByClassName("removeBtn")[0].style = "display:none;";
+        });
+        duplicated.getElementsByClassName("removeBtn")[0].onclick = (e) => {
+            e.currentTarget.parentNode.remove();
+        };
+        skillDiv.append(duplicated);
+    };
 }
 
+// SkS to GCD
+
+let gcd = 2.47;
+let gcdi = 2.14;
+
+document.getElementById("sks").addEventListener("change", (e) => {
+    let sks = e.target.value;
+    gcd = Math.floor(2500 * (1000 + Math.ceil(130 * (400 - sks) / 1900)) / 10000) / 100;
+    gcdi = Math.floor(2500 * 0.87 * (1000 + Math.ceil(130 * (400 - sks) / 1900)) / 10000) / 100;
+    document.getElementById("gcd").value = gcd;
+    document.getElementById("gcdi").value = gcdi;
+});
