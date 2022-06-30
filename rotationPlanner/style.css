@@ -2,7 +2,7 @@
     --img-height: 48px;
     --abi-size-ratio: 0.66;
 }
-#timeline{
+#tlWrapper{
     position: relative;
     overflow-x: scroll;
 }
@@ -10,43 +10,49 @@
     /* position: absolute; */
     top: 30px;
     display: flex;
-    /* height: calc(var(--img-height) * calc(var(--abi-size-ratio) + 1.0) * 1.1); */
-    height: 300px;
+    height: calc(var(--img-height) * calc(var(--abi-size-ratio) + 1.0) * 1.1);
+    /* height: 300px; */
     width: calc(var(--img-height) * 350);
 }
-.gcd{
-    position: absolute;
+#skill .gcd{
     width: var(--img-height);
-    /* height: var(--img-height); */
-    padding-top: calc(var(--img-height) * var(--abi-size-ratio) * 1.1);
+    height: var(--img-height);
+    padding-bottom: calc(var(--img-height) * var(--abi-size-ratio) * 1.1);
 }
-#skill > .gcd::before {
-    content: "";
-    position: absolute;
-    border-left: 1px solid #000;
-    height: 300px;
-}
-
-.abi{
+#skill .abi{
     width: calc(var(--img-height) * var(--abi-size-ratio));
     height: calc(var(--img-height) * var(--abi-size-ratio));
     padding-bottom: calc(var(--img-height) * 1.1);
 }
 img{
+    position: absolute;
+    left: 1px;
+    top: 1px;
     margin: 1px;
 }
-#skill > .gcd > img{
+#skill img{
+    left: 0;
+    margin: 0;
+}
+#skill .gcd > img{
     width: var(--img-height);
     height: var(--img-height);
+    margin-top: calc(var(--img-height) * var(--abi-size-ratio) * 1.1);
 }
-#skill > .abi > img{
+#skill .abi > img{
     width: calc(var(--img-height) * var(--abi-size-ratio));
     height: calc(var(--img-height) * var(--abi-size-ratio));
 }
+
+/* スキルパネル内の設定 */
 #skillpanel{
     width: calc(calc(var(--img-height) + 2px) * 7);
 }
+#skillpanel .wrapper{
+    margin: 0px;
+}
 #skillpanel img{
+    position: inherit;
     width: var(--img-height);
     height: var(--img-height);
     padding: 0;
@@ -55,13 +61,37 @@ img{
 .wrapper{
     position: relative;
 }
+.wrapper.gcd{
+    margin-right: var(--img-height);
+}
+.wrapper.abi{
+    margin-right: calc(var(--img-height) * var(--abi-size-ratio));
+}
+
+
+th{
+    width: 48px;
+    position: relative;
+}
+td{
+    position: relative;
+}
+
+#time{
+    display: flex;
+    height: 30px;
+}
+#dot{
+    display: flex;
+    height: 30px;
+}
 
 
 
 .removeBtn {
     position: absolute !important;
-    left: 1px;
-    top: 1px;
+    left: 3px;
+    top: 3px;
     display: block;
     position: relative;
     width: 12px;
@@ -88,7 +118,7 @@ img{
 .gcd > .removeBtn{
     margin-top: calc(var(--img-height) * var(--abi-size-ratio) * 1.1);
 }
-#time {
+/* #time {
     height: 300px;
     position: relative;
 }
@@ -102,4 +132,4 @@ img{
     bottom: 0;
     left: 0;
     right: 0;
-}
+} */
