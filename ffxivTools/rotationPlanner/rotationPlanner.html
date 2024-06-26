@@ -6,53 +6,72 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div id="timeline">
-    <div id="skill">
-    </div>
+<h>ローテーションプランナー(侍)</h><br>
+SkS: <input id="sks" type="number" value="579" style="width:55px;"> GCD <input id="gcd" value="2.47" style="width:35px" disabled>s GCD(風花) <input id="gcdi" value="2.14" style="width:35px" disabled>s <br>
+
+<div id="tlWrapper">
+    <table id="timeline" border="1">
+        <tr id="time">
+            <th></th>
+            <td></td>
+        </tr>
+        <tr id="skill">
+            <th>Skill</th>
+            <td></td>
+        </tr>
+        <tr id="dot">
+            <th>彼岸花</th>
+            <td></td>
+        </tr>
+    </table>
 </div>
 
 <div id="skillpanel">
-    <img src="./imgs/sam/pve_action__01.png" id="pve_action__01" class="gcd"
-    ><img src="./imgs/sam/pve_action__02.png" id="pve_action__02" class="gcd"
-    ><img src="./imgs/sam/pve_action__03.png" id="pve_action__03" class="abi"
-    ><img src="./imgs/sam/pve_action__04.png" id="pve_action__04" class="gcd"
-    ><img src="./imgs/sam/pve_action__05.png" id="pve_action__05" class="gcd"
-    ><img src="./imgs/sam/pve_action__06.png" id="pve_action__06" class="gcd"
-    ><img src="./imgs/sam/pve_action__07.png" id="pve_action__07" class="gcd"
-    ><img src="./imgs/sam/pve_action__08.png" id="pve_action__08" class="gcd"
-    ><img src="./imgs/sam/pve_action__09.png" id="pve_action__09" class="gcd"
-    ><img src="./imgs/sam/pve_action__10.png" id="pve_action__10" class="gcd"
-    ><img src="./imgs/sam/pve_action__11.png" id="pve_action__11" class="gcd"
-    ><img src="./imgs/sam/pve_action__12.png" id="pve_action__12" class="gcd"
-    ><img src="./imgs/sam/pve_action__13.png" id="pve_action__13" class="abi"
-    ><img src="./imgs/sam/pve_action__14.png" id="pve_action__14" class="abi"
-    ><img src="./imgs/sam/pve_action__15.png" id="pve_action__15" class="abi"
-    ><img src="./imgs/sam/pve_action__16.png" id="pve_action__16" class="abi"
-    ><img src="./imgs/sam/pve_action__17.png" id="pve_action__17" class="gcd"
-    ><img src="./imgs/sam/pve_action__18.png" id="pve_action__18" class="abi"
-    ><img src="./imgs/sam/pve_action__19.png" id="pve_action__19" class="abi"
-    ><img src="./imgs/sam/pve_action__20.png" id="pve_action__20" class="abi"
-    ><img src="./imgs/sam/pve_action__21.png" id="pve_action__21" class="abi"
-    ><img src="./imgs/sam/pve_action__22.png" id="pve_action__22" class="abi"
-    ><img src="./imgs/sam/pve_action__23.png" id="pve_action__23" class="gcd"
-    ><img src="./imgs/sam/pve_action__24.png" id="pve_action__24" class="abi"
-    ><img src="./imgs/sam/pve_action__25.png" id="pve_action__25" class="abi"
-    ><img src="./imgs/sam/pve_action__26.png" id="pve_action__26" class="gcd"
-    ><img src="./imgs/sam/pve_action__27.png" id="pve_action__27" class="gcd"
-    ><img src="./imgs/sam/pve_action__28.png" id="pve_action__28" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__01.png" id="pve_jyutsu_action__01" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__02.png" id="pve_jyutsu_action__02" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__03.png" id="pve_jyutsu_action__03" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__04.png" id="pve_jyutsu_action__04" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__05.png" id="pve_jyutsu_action__05" class="gcd"
-    ><img src="./imgs/sam/pve_jyutsu_action__06.png" id="pve_jyutsu_action__06" class="gcd"
-    ><img src="./imgs/sam/melee_action__01.png" id="melee_action__01" class="abi"
-    ><img src="./imgs/sam/melee_action__02.png" id="melee_action__02" class="abi"
-    ><img src="./imgs/sam/melee_action__03.png" id="melee_action__03" class="abi"
-    ><img src="./imgs/sam/melee_action__04.png" id="melee_action__04" class="abi"
-    ><img src="./imgs/sam/melee_action__05.png" id="melee_action__05" class="abi"
-    ><img src="./imgs/sam/melee_action__06.png" id="melee_action__06" class="abi">
+            <span class="wrapper gcd" id="pve_action__01"><img src="./imgs/sam/pve_action__01.png"
+    ></span><span class="wrapper gcd" id="pve_action__02"><img src="./imgs/sam/pve_action__02.png"
+    ></span><span class="wrapper abi" id="pve_action__03"><img src="./imgs/sam/pve_action__03.png"
+    ></span><span class="wrapper gcd" id="pve_action__04"><img src="./imgs/sam/pve_action__04.png"
+    ></span><span class="wrapper gcd" id="pve_action__05"><img src="./imgs/sam/pve_action__05.png"
+    ></span><span class="wrapper gcd" id="pve_action__06"><img src="./imgs/sam/pve_action__06.png"
+    ></span><span class="wrapper gcd" id="pve_action__07"><img src="./imgs/sam/pve_action__07.png"
+    ></span><span class="wrapper gcd" id="pve_action__08"><img src="./imgs/sam/pve_action__08.png"
+    ></span><span class="wrapper gcd" id="pve_action__09"><img src="./imgs/sam/pve_action__09.png"
+    ></span><span class="wrapper gcd" id="pve_action__10"><img src="./imgs/sam/pve_action__10.png"
+    ></span><span class="wrapper gcd" id="pve_action__11"><img src="./imgs/sam/pve_action__11.png"
+    ></span><span class="wrapper gcd" id="pve_action__12"><img src="./imgs/sam/pve_action__12.png"
+    ></span><span class="wrapper abi" id="pve_action__13"><img src="./imgs/sam/pve_action__13.png"
+    ></span><span class="wrapper abi" id="pve_action__14"><img src="./imgs/sam/pve_action__14.png"
+    ></span><span class="wrapper abi" id="pve_action__15"><img src="./imgs/sam/pve_action__15.png"
+    ></span><span class="wrapper abi" id="pve_action__16"><img src="./imgs/sam/pve_action__16.png"
+    ></span><span class="wrapper gcd" id="pve_action__17"><img src="./imgs/sam/pve_action__17.png"
+    ></span><span class="wrapper abi" id="pve_action__18"><img src="./imgs/sam/pve_action__18.png"
+    ></span><span class="wrapper abi" id="pve_action__19"><img src="./imgs/sam/pve_action__19.png"
+    ></span><span class="wrapper abi" id="pve_action__20"><img src="./imgs/sam/pve_action__20.png"
+    ></span><span class="wrapper abi" id="pve_action__21"><img src="./imgs/sam/pve_action__21.png"
+    ></span><span class="wrapper abi" id="pve_action__22"><img src="./imgs/sam/pve_action__22.png"
+    ></span><span class="wrapper gcd" id="pve_action__23"><img src="./imgs/sam/pve_action__23.png"
+    ></span><span class="wrapper abi" id="pve_action__24"><img src="./imgs/sam/pve_action__24.png"
+    ></span><span class="wrapper abi" id="pve_action__25"><img src="./imgs/sam/pve_action__25.png"
+    ></span><span class="wrapper gcd" id="pve_action__26"><img src="./imgs/sam/pve_action__26.png"
+    ></span><span class="wrapper gcd" id="pve_action__27"><img src="./imgs/sam/pve_action__27.png"
+    ></span><span class="wrapper gcd" id="pve_action__28"><img src="./imgs/sam/pve_action__28.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__01"><img src="./imgs/sam/pve_jyutsu_action__01.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__02"><img src="./imgs/sam/pve_jyutsu_action__02.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__03"><img src="./imgs/sam/pve_jyutsu_action__03.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__04"><img src="./imgs/sam/pve_jyutsu_action__04.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__05"><img src="./imgs/sam/pve_jyutsu_action__05.png"
+    ></span><span class="wrapper gcd" id="pve_jyutsu_action__06"><img src="./imgs/sam/pve_jyutsu_action__06.png"
+    ></span><span class="wrapper abi" id="melee_action__01"><img src="./imgs/sam/melee_action__01.png"
+    ></span><span class="wrapper abi" id="melee_action__02"><img src="./imgs/sam/melee_action__02.png"
+    ></span><span class="wrapper abi" id="melee_action__03"><img src="./imgs/sam/melee_action__03.png"
+    ></span><span class="wrapper abi" id="melee_action__04"><img src="./imgs/sam/melee_action__04.png"
+    ></span><span class="wrapper abi" id="melee_action__05"><img src="./imgs/sam/melee_action__05.png"
+    ></span><span class="wrapper abi" id="melee_action__06"><img src="./imgs/sam/melee_action__06.png"></span>
 </div>
+
+
+<span class="removeBtn" style="display:none;"></span>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script src="./main.js"></script>

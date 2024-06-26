@@ -1,8 +1,117 @@
-new Sortable(skill, { // 入れ替わる要素を格納している親要素のid
-    animation: 150, // 入れ替わる時の速度
+let timeTr = document.getElementById("time");
+let skillTr = document.getElementById("skill");
+let dotTr = document.getElementById("dot");
+let removeBtn = document.getElementsByClassName("removeBtn")[0];
+
+let skillCnt = 0;
+
+let options = {
+    group: {
+        name: "skill",
+        put: "skillpanel",
+        pull: false
+    },
+    animation: 100
+};
+
+let clicked = (e) => {
+    skillCnt++;
+    let duplicated = e.currentTarget.cloneNode(true);
+    duplicated.addEventListener("mouseenter", (e) => {
+        e.currentTarget.getElementsByClassName("removeBtn")[0].style = "";
+    });
+    duplicated.addEventListener("mouseleave", (e) => {
+        e.currentTarget.getElementsByClassName("removeBtn")[0].style = "display:none;";
+    });
+    duplicated.getElementsByClassName("removeBtn")[0].onclick = (e) => {
+        e.currentTarget.parentNode.parentNode.remove();
+        let sameIds = document.getElementsByClassName(cls);
+        while(0 < sameIds.length){
+            sameIds[0].remove();
+        }
+    };
+    let newTd = document.createElement("td");
+    newTd.appendChild(duplicated);
+    skillTr.append(newTd);
+
+    let cls = "s" + skillCnt.toString();
+    let cls2, width;
+    if(e.currentTarget.classList.contains("gcd")){
+        cls2 = "gcd";
+        width = "48px";
+    }
+    else{
+        cls2 = "abi";
+        width = "31.672px";
+    }
+    newTd.classList.add(cls, cls2);
+    newTd = document.createElement("td");
+    newTd.innerHTML = "&nbsp;";
+    newTd.style.width = width;
+    newTd.classList.add(cls, cls2);
+    timeTr.appendChild(newTd);
+    newTd = document.createElement("td");
+    newTd.innerHTML = "&nbsp;";
+    newTd.style.width = width;
+    newTd.classList.add(cls, cls2);
+    dotTr.appendChild(newTd);
+};
+
+options["onAdd"] = (e) => {
+    e.item.onclick = () => {};
+    skillCnt++;
+    let cls = "s" + skillCnt.toString();
+    e.item.addEventListener("mouseenter", (e) => {
+        e.currentTarget.getElementsByClassName("removeBtn")[0].style = "";
+    });
+    e.item.addEventListener("mouseleave", (e) => {
+        e.currentTarget.getElementsByClassName("removeBtn")[0].style = "display:none;";
+    });
+    e.item.getElementsByClassName("removeBtn")[0].onclick = (e) => {
+        e.currentTarget.parentNode.parentNode.remove();
+        let sameIds = document.getElementsByClassName(cls);
+        while(0 < sameIds.length){
+            sameIds[0].remove();
+        }
+    };
+    let newTd = document.createElement("td");
+    e.item.parentNode.insertBefore(newTd, e.item);
+    newTd.appendChild(e.item);
+
+    e.clone.onclick = clicked;
+
+    let cls2, width;
+    if(e.clone.classList.contains("gcd")){
+        cls2 = "gcd";
+        width = "48px";
+    }
+    else{
+        cls2 = "abi";
+        width = "31.672px";
+    }
+    newTd.classList.add(cls, cls2);
+    newTd = document.createElement("td");
+    newTd.innerHTML = "&nbsp;";
+    newTd.style.width = width;
+    newTd.classList.add(cls, cls2);
+    timeTr.appendChild(newTd);
+    newTd = document.createElement("td");
+    newTd.innerHTML = "&nbsp;";
+    newTd.style.width = width;
+    newTd.classList.add(cls, cls2);
+    dotTr.appendChild(newTd);
+}
+
+Sortable.create(skill, options);
+Sortable.create(skillpanel, {
+    group:{
+        name: "skillpanel",
+        pull: "clone",
+        revertClone: false
+    }
 });
 
-let skills = {
+let names = {
     "pve_action__01": "刃風",
     "pve_action__02": "陣風",
     "pve_action__03": "心眼",
@@ -45,13 +154,24 @@ let skills = {
     "melee_action__06": "トゥルーノース"
 }
 
-let skillDiv = document.getElementById("skill");
-let imgs = document.getElementById("skillpanel").getElementsByTagName("img");
-for(let i = 0; i < imgs.length; i++){
-    imgs[i].setAttribute("title", skills[imgs[i].getAttribute("id")]);
-    imgs[i].onclick = (e) => {
-        console.log(e.target);
-        skillDiv.append(e.target.cloneNode(true));
-    }
+// Initialize
+
+let skills = document.getElementById("skillpanel").getElementsByClassName("wrapper");
+for(let i = 0; i < skills.length; i++){
+    skills[i].appendChild(removeBtn.cloneNode(true));
+    skills[i].setAttribute("title", names[skills[i].getAttribute("id")]);
+    skills[i].onclick = clicked;
 }
 
+// SkS to GCD
+
+let gcd = 2.47;
+let gcdi = 2.14;
+
+document.getElementById("sks").addEventListener("change", (e) => {
+    let sks = e.target.value;
+    gcd = Math.floor(2500 * (1000 + Math.ceil(130 * (400 - sks) / 1900)) / 10000) / 100;
+    gcdi = Math.floor(2500 * 0.87 * (1000 + Math.ceil(130 * (400 - sks) / 1900)) / 10000) / 100;
+    document.getElementById("gcd").value = gcd;
+    document.getElementById("gcdi").value = gcdi;
+});
