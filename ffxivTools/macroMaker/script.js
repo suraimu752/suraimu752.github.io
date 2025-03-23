@@ -28,6 +28,9 @@ waits["最終確認"] = " <wait.2>";
 waits["確信"] = " <wait.3>";
 waits["注視加工"] = " <wait.3>";
 waits["注視作業"] = " <wait.3>";
+waits["洗練加工"] = " <wait.3>";
+waits["パーフェクトメンド"] = " <wait.3>";
+waits["匠の絶技"] = " <wait.3>";
 // waits[""] = " <wait.>";
 
 function make(){
