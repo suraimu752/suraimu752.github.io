@@ -9,6 +9,13 @@
   <body>
     <div class="wrap">
       <div class="terminal" id="terminal" role="application" aria-label="Terminal log">
+        <div class="soundgate" id="soundgate" hidden>
+          <div class="soundgate__panel" role="dialog" aria-label="Enable sound">
+            <div class="soundgate__title">Click to enable sound</div>
+            <div class="soundgate__desc">初回はブラウザの仕様で音が止まることがあります</div>
+            <button class="soundgate__btn" id="soundgateBtn" type="button">Enable</button>
+          </div>
+        </div>
         <div class="bar">
           <span class="dots" aria-hidden="true">
             <span class="dot"></span><span class="dot"></span><span class="dot"></span>

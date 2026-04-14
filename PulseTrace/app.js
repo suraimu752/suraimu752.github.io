@@ -3,6 +3,8 @@
   const logEl = document.getElementById("log");
   const screenEl = logEl.parentElement;
   const cmdInputEl = document.getElementById("cmdinput");
+  const soundGateEl = document.getElementById("soundgate");
+  const soundGateBtnEl = document.getElementById("soundgateBtn");
 
   const rand = (n) => Math.floor(Math.random() * n);
   const pick = (arr) => arr[rand(arr.length)];
@@ -37,28 +39,93 @@
 
   // ---- Tiny typing sound (WebAudio) ----
   let audioCtx = null;
-  let audioUnlocked = false;
   let lastBeepAt = 0;
   let soundMuted = false;
+  let soundGateDismissed = false;
+
+  function isAudioRunning() {
+    return !!audioCtx && audioCtx.state === "running";
+  }
+
+  function setSoundGateVisible(visible) {
+    if (!soundGateEl) return;
+    if (soundGateDismissed) {
+      soundGateEl.hidden = true;
+      return;
+    }
+    soundGateEl.hidden = !visible;
+  }
 
   function ensureAudio() {
     if (soundMuted) return false;
-    if (audioUnlocked) return true;
     const Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return false;
-    audioCtx = audioCtx ?? new Ctx();
-    audioCtx.resume?.();
-    audioUnlocked = audioCtx.state === "running";
-    return audioUnlocked;
+    if (!audioCtx) {
+      audioCtx = new Ctx();
+      audioCtx.onstatechange = () => {
+        setSoundGateVisible(!soundMuted && audioCtx.state !== "running");
+      };
+    }
+    if (audioCtx.state !== "running") {
+      const p = audioCtx.resume?.();
+      // resume() is async and may reject if not user-initiated.
+      if (p && typeof p.then === "function") p.catch(() => {});
+    }
+    setSoundGateVisible(!soundMuted && audioCtx.state !== "running");
+    return audioCtx.state === "running";
   }
 
   function unlockAudioOnce() {
     ensureAudio();
+    queueMicrotask(() => ensureAudio());
     removeEventListener("pointerdown", unlockAudioOnce);
     removeEventListener("keydown", unlockAudioOnce);
   }
   addEventListener("pointerdown", unlockAudioOnce, { once: true });
   addEventListener("keydown", unlockAudioOnce, { once: true });
+
+  // Show a one-shot "click to enable sound" overlay until AudioContext runs.
+  // (Some browsers require a user gesture before audio can start.)
+  if (soundGateEl) {
+    // Prevent the click from switching to manual input mode.
+    soundGateEl.addEventListener("pointerdown", (e) => e.stopPropagation());
+    soundGateEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      // User explicitly dismissed the overlay: keep it closed.
+      soundGateDismissed = true;
+      setSoundGateVisible(false);
+    });
+  }
+  if (soundGateBtnEl) {
+    soundGateBtnEl.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Always close on click, regardless of AudioContext state.
+      soundGateDismissed = true;
+      setSoundGateVisible(false);
+      ensureAudio();
+      if (isAudioRunning()) return;
+
+      // If resume completes asynchronously, close immediately on success.
+      if (audioCtx && audioCtx.state !== "running" && typeof audioCtx.resume === "function") {
+        const p = audioCtx.resume();
+        if (p && typeof p.then === "function") {
+          p.then(() => {
+            setSoundGateVisible(!soundMuted && audioCtx.state !== "running");
+          }).catch(() => {});
+        }
+      }
+      // Also re-check shortly after (covers browsers that update state a tick later)
+      setTimeout(() => ensureAudio(), 0);
+      setTimeout(() => ensureAudio(), 80);
+    });
+  }
+  // Initial state (no gesture yet => likely suspended)
+  queueMicrotask(() => {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return; // no WebAudio => don't show
+    setSoundGateVisible(!soundMuted && !isAudioRunning());
+  });
 
   function beep(freq, ms, gain) {
     if (!audioCtx || audioCtx.state !== "running") return;
@@ -738,6 +805,7 @@
     if (c === "mute") {
       soundMuted = !soundMuted;
       sysLine(`sound ${soundMuted ? "muted" : "unmuted"}`, soundMuted ? "WARN" : "INFO");
+      setSoundGateVisible(!soundMuted && !isAudioRunning());
       return;
     }
 
