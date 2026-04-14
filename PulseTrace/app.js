@@ -123,7 +123,12 @@
   // Initial state (no gesture yet => likely suspended)
   queueMicrotask(() => {
     const Ctx = window.AudioContext || window.webkitAudioContext;
-    if (!Ctx) return; // no WebAudio => don't show
+    if (!Ctx) {
+      // no WebAudio => don't show
+      setSoundGateVisible(false);
+      return;
+    }
+    // If audio is already running, hide immediately; otherwise show until user dismisses/enables.
     setSoundGateVisible(!soundMuted && !isAudioRunning());
   });
 
