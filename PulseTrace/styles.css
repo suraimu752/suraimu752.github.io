@@ -1,0 +1,229 @@
+:root {
+  color-scheme: dark;
+  --bg: #000;
+  --fg: #00ff66;
+  --dim: rgba(0, 255, 102, 0.55);
+  --dbg: rgba(0, 255, 102, 0.35);
+  --info: #00ff66;
+  --warn: #ffe66d;
+  --error: #ff4d4d;
+  --cmd: #6bdcff;
+  --line-h: 18px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/var(--line-h) ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.wrap {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.terminal {
+  width: min(980px, 100%);
+  height: min(560px, 100%);
+  border: 1px solid rgba(0, 255, 102, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 255, 102, 0.08);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: radial-gradient(
+      1200px 700px at 10% 0%,
+      rgba(0, 255, 102, 0.08),
+      transparent 60%
+    ),
+    #000;
+  position: relative;
+}
+
+.terminal.flash {
+  animation: flash 140ms ease-out;
+}
+@keyframes flash {
+  0% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 1), 0 0 0 9999px rgba(255, 0, 0, 0.22),
+      0 0 50px rgba(255, 30, 30, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 255, 102, 0.08);
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.15);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0, 255, 102, 0.25);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.12);
+}
+
+.title {
+  color: var(--dim);
+  letter-spacing: 0.04em;
+  font-size: 12px;
+  user-select: none;
+}
+
+.screen {
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden; /* 古いログが上に流れて消える */
+}
+
+#log {
+  margin: 0;
+  white-space: pre;
+}
+
+.line {
+  display: block;
+  will-change: transform;
+}
+
+.line.info {
+  color: var(--info);
+}
+
+.line.debug {
+  color: var(--dbg);
+}
+
+.line.warn {
+  color: var(--warn);
+  animation: warnShake 240ms ease-in-out;
+}
+
+.line.error {
+  color: var(--error);
+}
+
+.line.cmd {
+  color: var(--cmd);
+}
+
+@keyframes warnShake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* 追加された直後だけ、軽い出現感 */
+.line.new {
+  animation: pop 120ms ease-out;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cmd {
+  background: rgba(0, 0, 0, 0.82);
+  padding: 0;
+  height: var(--line-h);
+  min-height: var(--line-h);
+  line-height: var(--line-h);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.prompt {
+  color: rgba(0, 255, 102, 0.75);
+  user-select: none;
+}
+
+.cmdline {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.cmdline::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  margin-left: 2px;
+  background: rgba(0, 255, 102, 0.55);
+  height: 1em;
+  vertical-align: -2px;
+  animation: blink 900ms steps(1, end) infinite;
+}
+
+.cmdinput {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cmdinput::placeholder {
+  color: rgba(0, 255, 102, 0.45);
+}
+
+.cmdinput {
+  caret-color: rgba(0, 255, 102, 0.75);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+

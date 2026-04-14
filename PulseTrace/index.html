@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PulseTrace</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="terminal" id="terminal" role="application" aria-label="Terminal log">
+        <div class="bar">
+          <span class="dots" aria-hidden="true">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </span>
+          <span class="title" id="statusTitle">PulseTrace — streaming… (1 line/sec)</span>
+        </div>
+        <div class="screen">
+          <pre id="log" aria-live="polite" aria-relevant="additions"></pre>
+        </div>
+        <div class="cmd" aria-label="command line (visual only)">
+          <span class="prompt">&gt;</span>
+          <input
+            class="cmdinput"
+            id="cmdinput"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Type `help` to list commands"
+            aria-label="command input"
+          />
+        </div>
+      </div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
